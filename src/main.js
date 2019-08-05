@@ -4,7 +4,7 @@ import ElementUI from 'element-ui'
 import router from './router/index.js'
 import '@/style/index.less'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
+import axios from '@/api'
 Vue.prototype.$https = axios
 
 Vue.use(ElementUI)
