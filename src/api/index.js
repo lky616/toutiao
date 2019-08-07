@@ -4,13 +4,13 @@ import router from '../router'
 
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
 /* axios.defaults.headers = {
-  Authorization: `Bearer ${store.getUser().toen}`
+  Authorization: `Bearer ${store.getUser().token}`
 } */
 // 在每次请求之前，获取token信息，追加在headers中
 // 请求拦截器：在每次请求前 做某些事情
 axios.interceptors.request.use((config) => {
   config.headers = {
-    Authorization: `Bearer ${store.getUser().toen}`
+    Authorization: `Bearer ${store.getUser().token}`
   }
   return config
 }, (error) => {

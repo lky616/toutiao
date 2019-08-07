@@ -60,24 +60,39 @@ export default {
   methods: {
     login () {
       // 对整个表单进行校验
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
-          this.$https
-            .post(
-              'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-              this.loginForm
-            )
-            .then(res => {
-              // res响应对象 包含响应主体
-              // console.log(res.data)
-              store.setUser(res.data.data)
-              // 跳转去首页
-              this.$router.push('/')
-            })
-            .catch(() => {
-              // 错误提示
-              this.$message.error('手机号或验证码错误')
-            })
+          // this.$https
+          //   .post(
+          //     'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+          //     this.loginForm
+          //   )
+          //   .then(res => {
+          //     // res响应对象 包含响应主体
+          //     // console.log(res.data)
+          //     store.setUser(res.data.data)
+          //     // 跳转去首页
+          //     this.$router.push('/')
+          //   })
+          //   .catch(() => {
+          //     // 错误提示
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+          // 使用await与async
+          // const {
+          //   data: { data }
+          // } = await this.$http.post('authorizations')
+          // store.setUser(data)
+          try {
+            const {
+              data: { data }
+            } = await this.$https.post('authorizations', this.loginForm)
+            store.setUser(data)
+            this.$router.push('/')
+          } catch (e) {
+            // e就是错误对象
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
